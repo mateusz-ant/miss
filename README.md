@@ -28,7 +28,11 @@ Przewidywane udoskonalenia:
 Narzędzia: framework SimPy
 
 
-Na następne zajęcia (17.03):
+Na następne zajęcia (24.03):
  - założyć pusty projekt na GH
  - zapoznać się z SimPy
  - dopracować założenia
+
+Na następne zajęcia (31.03):
+ - implementacja modelu (Wilk. Zając)
+ - implementacja prostej interakcji pomiędzy Wilkiem i Zającem
