@@ -2,7 +2,7 @@ import simpy
 
 from models.meadow import Meadow
 
-ENV_RUNNING_TIME = 50
+ENV_RUNNING_TIME = 100
 
 def main():
 
