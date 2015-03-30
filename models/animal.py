@@ -7,3 +7,7 @@ class Animal(object):
         self.running_time = running_duration
         self.sleeping_time = sleeping_duration
         self.action = env.process(self.run())
+
+    def run(self):
+        pass
+

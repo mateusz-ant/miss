@@ -1,4 +1,4 @@
-from animal import Animal
+from models.animal import Animal
 
 class Hare(Animal):
     def run(self):
