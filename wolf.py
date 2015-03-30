@@ -1,6 +1,6 @@
 from animal import Animal
 
-class Hare(Animal):
+class Wolf(Animal):
     def run(self):
         while True:
             print('Sleeping at %d' % self.env.now)
