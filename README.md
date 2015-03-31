@@ -39,5 +39,6 @@ Na następne zajęcia (31.03):
 
 Na następne zajęcia (14.04):
  - implementacja rozmnażania
+ - implementacja żywotności zwierząt (parametr energii)
  - implementacja behawioryzmu (watahy, oddziałowanie wewnątrzgatunkowe)
  - dodanie biblioteki graficznej
