@@ -3,8 +3,8 @@ from models.hare import Hare
 from models.wolf import Wolf
 
 REPORT_INTERVAL = 5
-NUM_OF_HARES = 10
-NUM_OF_WOLVES = 3
+NUM_OF_HARES = 400
+NUM_OF_WOLVES = 100
 
 class Meadow(object):
 
