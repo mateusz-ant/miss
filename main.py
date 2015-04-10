@@ -3,12 +3,10 @@ import simpy
 import pygame
 
 from models.meadow import Meadow
+from parameters import *
 
-ENV_RUNNING_TIME = 100
-SCREEN_LENGTH = 800
-SCREEN_HEIGHT = 600
+
 class Main:
-
     def __init__(self):
         self.env = simpy.Environment()
         self.meadow = Meadow(self.env)
@@ -18,7 +16,7 @@ class Main:
 
     def init_pygame(self):
         pygame.init()
-        self.display = pygame.display.set_mode((SCREEN_LENGTH,SCREEN_HEIGHT))
+        self.display = pygame.display.set_mode((SCREEN_LENGTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Wolf Hare Coevoultion Simulation')
 
     def simulation(self):

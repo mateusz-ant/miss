@@ -1,5 +1,14 @@
-class Animal(object):
-    def __init__(self, env, eating_duration=4, running_duration=10, sleeping_duration=10, name="no_name", x=0.0, y=0.0):
+from abc import abstractmethod
+from math import sqrt
+import random
+
+from parameters import SCREEN_HEIGHT, SCREEN_LENGTH
+from models.utils.utils import AnimalUtils
+
+
+class Animal(AnimalUtils):
+    def __init__(self, env, eating_duration=4, running_duration=10, sleeping_duration=10, name="no_name", x=0.0, y=0.0,
+                 max_speed=5):
         self.x = x
         self.y = y
         self.image = None
@@ -7,15 +16,42 @@ class Animal(object):
         self.env = env
         self.name = name
         self.alive = True
+        self.max_speed = max_speed
         self.eating_time = eating_duration
         self.running_time = running_duration
         self.sleeping_time = sleeping_duration
         self.action = env.process(self.run())
 
+    @abstractmethod
     def run(self):
+        pass
+
+    @abstractmethod
+    def can_reproduce_with(self, other_animal) -> bool:
         pass
 
     def show_up(self, display, x, y):
         if not self.displayed:
-            display.blit(self.image, (x,y))
+            display.blit(self.image, (x, y))
             self.displayed = True
+
+    def move(self):
+        def move_coordinate(coordinate, lower_bound, upper_bound):
+            max_speed_per_coordinate = self.max_speed / sqrt(2)
+            sgn = random.randrange(-1, 2, 2)
+            vector = sgn * random.random() * max_speed_per_coordinate
+            new_coordinate = coordinate + vector
+
+            return min(max(new_coordinate, lower_bound), upper_bound)
+
+        new_x = move_coordinate(self.x, 0, SCREEN_LENGTH)
+        new_y = move_coordinate(self.y, 0, SCREEN_HEIGHT)
+
+        self.report("Moving from:", self.x, self.y, "to", new_x, new_y)
+
+        self.x = new_x
+        self.y = new_y
+
+
+    def __repr__(self, *args, **kwargs):
+        return "[{} {}, x = {}, y = {}]".format(self.__class__.__name__, self.name, self.x, self.y)

@@ -1,6 +1,8 @@
 import random
+
 from models.animal import Animal
 from pygame import image
+
 
 HUNT_PROBABILITY = 0.6
 
@@ -12,18 +14,23 @@ class Wolf(Animal):
 
     def run(self):
         while True:
-            print('%s: Sleeping at %d' % (self.name, self.env.now))
+            self.report("Sleeping")
             yield self.env.timeout(self.sleeping_time)
 
-            print('%s: Eating at %d' % (self.name, self.env.now))
+            self.report("Eating")
             yield self.env.timeout(self.eating_time)
 
-            print('%s: Running at %d' % (self.name, self.env.now))
+            self.report("Running")
+            self.move()
             yield self.env.timeout(self.running_time)
+
+    def can_reproduce_with(self, other_animal):
+        return False
 
     def hunt(self, hares):
         if len(hares) and random.random() < HUNT_PROBABILITY:
             hare = random.choice(hares)
-            print("%s: HARE TO BE KILLED: %s" % (self.name, hare.name))
+            self.report("Running")
+            self.report("HARE TO BE KILLED:", hare.name)
             hare.action.interrupt()
         yield self.env.timeout(2)
