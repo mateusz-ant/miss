@@ -3,7 +3,7 @@ import itertools
 
 from models.hare import Hare
 from models.wolf import Wolf
-from parameters import NUM_OF_HARES, NUM_OF_WOLVES, REPORT_INTERVAL
+from parameters import *
 
 
 SEQUENCE = 0
@@ -16,11 +16,12 @@ def seq():
 
 
 class Meadow(object):
-    def __init__(self, env):
+    def __init__(self, env, display):
         self.env = env
+        self.display = display
         self.action = env.process(self.run())
-        self.hares = [Hare(env, name="hare_" + seq()) for _ in range(NUM_OF_HARES)]
-        self.wolves = [Wolf(env, name="wolf_" + seq()) for _ in range(NUM_OF_WOLVES)]
+        self.hares = [Hare(env, name="hare_" + seq(), display=self.display, x=rand_x(), y=rand_y()) for _ in range(NUM_OF_HARES)]
+        self.wolves = [Wolf(env, name="wolf_" + seq(), display=self.display, x=rand_x(), y=rand_y()) for _ in range(NUM_OF_WOLVES)]
 
     def run(self):
         while True:
@@ -35,7 +36,7 @@ class Meadow(object):
             hare_pairs = itertools.product(self.hares, repeat=2)
             can_reproduce = lambda h: h[0].can_reproduce_with(h[1]) and h[1].can_reproduce_with(h[0])
             new_hares_count = len(list(filter(can_reproduce, hare_pairs)))
-            new_hares = [Hare(self.env, name='hare_' + seq()) for _ in range(new_hares_count)]
+            new_hares = [Hare(self.env, name='hare_' + seq(), display=self.display, x=rand_x(), y=rand_y()) for _ in range(new_hares_count)]
             self.hares.extend(new_hares)
 
 

@@ -3,13 +3,11 @@ import random
 from models.animal import Animal
 from pygame import image
 
-
 HUNT_PROBABILITY = 0.6
 
-
 class Wolf(Animal):
-    def __init__(self, env, eating_duration=4, running_duration=10, sleeping_duration=10, name="no_name", x=0.0, y=0.0):
-        super(Wolf, self).__init__(env, eating_duration, running_duration, sleeping_duration, name, x, y)
+    def __init__(self, env, display, eating_duration=4, running_duration=10, sleeping_duration=10, name="no_name", x=0.0, y=0.0):
+        super(Wolf, self).__init__(env, display, eating_duration, running_duration, sleeping_duration, name, x, y)
         self.image = image.load('img/wolf.png')
 
     def run(self):
