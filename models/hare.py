@@ -7,9 +7,14 @@ from pygame import image
 
 
 class Hare(Animal):
-    def __init__(self, env, display, eating_duration=4, running_duration=10, sleeping_duration=10, name="no_name", x=0.0, y=0.0):
-        super(Hare, self).__init__(env, display, eating_duration, running_duration, sleeping_duration, name, x, y)
+    def __init__(self, env, display, eating_duration=4, running_duration=20, sleeping_duration=10, max_speed=20, name="no_name", x=0.0, y=0.0):
+        super(Hare, self).__init__(env, display, eating_duration, running_duration, sleeping_duration, name, x, y, max_speed)
         self.image = image.load('img/hare.png')
+        self.shadow = image.load('img/hare_b.png')
+        self.max_speed = max_speed * random.random()
+        self.eating_time = eating_duration * random.random()
+        self.running_time = running_duration * random.random()
+        self.sleeping_time = sleeping_duration * random.random()
 
     def run(self):
         while True:

@@ -20,7 +20,7 @@ class Main:
 
     def init_pygame(self):
         pygame.init()
-        self.display = pygame.display.set_mode((SCREEN_LENGTH, SCREEN_HEIGHT))
+        self.display = pygame.display.set_mode((SCREEN_LENGTH, SCREEN_HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
         pygame.display.set_caption('Wolf Hare Coevoultion Simulation')
 
     def stop_rendering(self):
