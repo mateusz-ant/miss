@@ -20,8 +20,8 @@ class Meadow(object):
         self.env = env
         self.display = display
         self.action = env.process(self.run())
-        self.hares = [Hare(env, name="hare_" + seq(), display=self.display, x=rand_x(), y=rand_y()) for _ in range(NUM_OF_HARES)]
-        self.wolves = [Wolf(env, name="wolf_" + seq(), display=self.display, x=rand_x(), y=rand_y()) for _ in range(NUM_OF_WOLVES)]
+        self.env.hares = [Hare(env, name="hare_" + seq(), display=self.display, x=rand_x(), y=rand_y()) for _ in range(NUM_OF_HARES)]
+        self.env.wolves = [Wolf(env, name="wolf_" + seq(), display=self.display, x=rand_x(), y=rand_y()) for _ in range(NUM_OF_WOLVES)]
 
     @staticmethod
     def reproduce_species(animals, new_animal_constructor):

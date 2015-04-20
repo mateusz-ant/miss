@@ -33,13 +33,12 @@ class Animal(AnimalUtils):
     def can_reproduce_with(self, other_animal) -> bool:
         pass
 
-    def show_up(self, x, y):
-        clock = pygame.time.Clock()
     @abstractmethod
     def die(self):
         pass
 
-    def show_up(self, display, x, y):
+    def show_up(self, x, y):
+        clock = pygame.time.Clock()
         if not self.displayed:
             self.displayed = True
         self.display.blit(self.image, (x, y))
@@ -77,6 +76,9 @@ class Animal(AnimalUtils):
     def __repr__(self, *args, **kwargs):
         return "[{} {}, x = {}, y = {}, energy = {}]" \
             .format(self.__class__.__name__, self.name, self.x, self.y, self.energy)
+
+    def __eq__(self, other):
+        return self.name == other.name
 
 
 def can_reproduce_with(min_distance, sexual_arousal):
