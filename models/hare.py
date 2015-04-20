@@ -27,9 +27,15 @@ class Hare(Animal):
                 self.report("Has been killed!")
 
     def can_reproduce_with(self, other_animal):
-        myself = self == other_animal
-        same_species = other_animal.__class__ == self.__class__
-        close_by = self.distance(other_animal) < .001
-        would_like_to_reproduce = random.random() > .98
+        from models.animal import can_reproduce_with
+        return can_reproduce_with(.1, .25)(self, other_animal)
 
-        return not myself and same_species and close_by and would_like_to_reproduce
+    def die(self):
+        self.report("Bye bye cruel world")
+        try:
+            self.env.hares.remove(self)
+        except ValueError:
+            self.report("I was dead")
+
+    def __eq__(self, other):
+        return self.name == other.name

@@ -15,7 +15,8 @@ class Wolf(Animal):
             self.report("Sleeping")
             yield self.env.timeout(self.sleeping_time)
 
-            self.report("Eating")
+            self.report("Hunting")
+            self.hunt(self.env.hares)
             yield self.env.timeout(self.eating_time)
 
             self.report("Running")
@@ -23,7 +24,8 @@ class Wolf(Animal):
             yield self.env.timeout(self.running_time)
 
     def can_reproduce_with(self, other_animal):
-        return False
+        from models.animal import can_reproduce_with
+        return can_reproduce_with(.2, .5)(self, other_animal)
 
     def hunt(self, hares):
         if len(hares) and random.random() < HUNT_PROBABILITY:
@@ -31,4 +33,13 @@ class Wolf(Animal):
             self.report("Running")
             self.report("HARE TO BE KILLED:", hare.name)
             hare.action.interrupt()
+            hare.die()
+            self.change_energy(hare.energy)
         yield self.env.timeout(2)
+
+    def die(self):
+        self.report("Bye bye cruel world")
+        try:
+            self.env.wolves.remove(self)
+        except ValueError:
+            self.report("I was dead")
