@@ -37,8 +37,13 @@ Na następne zajęcia (31.03):
  - implementacja modelu (Wilk. Zając)
  - implementacja prostej interakcji pomiędzy Wilkiem i Zającem
 
-Na następne zajęcia (14.04):
+Na następne zajęcia (21.04):
  - implementacja rozmnażania
  - implementacja żywotności zwierząt (parametr energii)
- - implementacja behawioryzmu (watahy, oddziałowanie wewnątrzgatunkowe)
  - dodanie biblioteki graficznej
+
+Na następne zajęcia (28.04):
+ - implementacja behawioryzmu (watahy, oddziałowanie wewnątrzgatunkowe)
+ - wyciągnięcie konfiguracji na zewnątrz
+ - próba symulacji i osiągnięcia konstruktywnych wniosków
+ 
