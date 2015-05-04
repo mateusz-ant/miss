@@ -2,11 +2,13 @@ import random
 
 from models.animal import Animal
 from pygame import image
+from parameters import WOLF_EATING_DURATION, WOLF_RUNNING_DURATION, WOLF_MAX_SPEED, WOLF_SLEEPING_DURATION, \
+    WOLF_HUNT_PROBABILITY
 
-HUNT_PROBABILITY = 0.6
 
 class Wolf(Animal):
-    def __init__(self, env, display, eating_duration=2, running_duration=8, sleeping_duration=10, max_speed=10, name="no_name", x=0.0, y=0.0):
+    def __init__(self, env, display, eating_duration=WOLF_EATING_DURATION, running_duration=WOLF_RUNNING_DURATION,
+                 sleeping_duration=WOLF_SLEEPING_DURATION, max_speed=WOLF_MAX_SPEED, name="no_name", x=0.0, y=0.0):
         super(Wolf, self).__init__(env, display, eating_duration, running_duration, sleeping_duration, name, x, y, max_speed)
         self.image = image.load('img/wolf.png')
         self.shadow = image.load('img/wolf_b.png')
@@ -29,7 +31,7 @@ class Wolf(Animal):
         return can_reproduce_with(.2, .5)(self, other_animal)
 
     def hunt(self, hares):
-        if len(hares) and random.random() < HUNT_PROBABILITY:
+        if len(hares) and random.random() < WOLF_HUNT_PROBABILITY:
             hare = random.choice(hares)
             self.report("Running")
             self.report("HARE TO BE KILLED:", hare.name)

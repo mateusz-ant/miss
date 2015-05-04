@@ -3,13 +3,15 @@ from math import sqrt
 import random
 import pygame
 
-from parameters import SCREEN_HEIGHT, SCREEN_LENGTH, ANIMAL_START_ENERGY
+from parameters import SCREEN_HEIGHT, SCREEN_LENGTH, ANIMAL_START_ENERGY, ANIMAL_MAX_SPEED_DEFAULT, \
+    ANIMAL_EATING_DURATION_DEFAULT, ANIMAL_RUNNING_DURATION_DEFAULT, ANIMAL_SLEEPING_DURATION_DEFAULT
 from models.utils.utils import AnimalUtils
 
 
 class Animal(AnimalUtils):
-    def __init__(self, env, display, eating_duration=4, running_duration=10, sleeping_duration=8, name="no_name", x=0.0, y=0.0,
-                 max_speed=12, energy=ANIMAL_START_ENERGY):
+    def __init__(self, env, display, eating_duration=ANIMAL_EATING_DURATION_DEFAULT,
+                 running_duration=ANIMAL_RUNNING_DURATION_DEFAULT, sleeping_duration=ANIMAL_SLEEPING_DURATION_DEFAULT,
+                 name="no_name", x=0.0, y=0.0, max_speed=ANIMAL_MAX_SPEED_DEFAULT, energy=ANIMAL_START_ENERGY):
         self.display = display
         self.x = x
         self.y = y

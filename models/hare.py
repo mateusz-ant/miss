@@ -4,10 +4,12 @@ import simpy
 
 from models.animal import Animal
 from pygame import image
+from parameters import HARE_EATING_DURATION, HARE_RUNNING_DURATION, HARE_MAX_SPEED, HARE_SLEEPING_DURATION
 
 
 class Hare(Animal):
-    def __init__(self, env, display, eating_duration=4, running_duration=20, sleeping_duration=10, max_speed=20, name="no_name", x=0.0, y=0.0):
+    def __init__(self, env, display, eating_duration=HARE_EATING_DURATION, running_duration=HARE_RUNNING_DURATION,
+                 sleeping_duration=HARE_SLEEPING_DURATION, max_speed=HARE_MAX_SPEED, name="no_name", x=0.0, y=0.0):
         super(Hare, self).__init__(env, display, eating_duration, running_duration, sleeping_duration, name, x, y, max_speed)
         self.image = image.load('img/hare.png')
         self.shadow = image.load('img/hare_b.png')
