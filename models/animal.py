@@ -40,6 +40,12 @@ class Animal(AnimalUtils):
     def die(self):
         pass
 
+    def bury(self):
+        clock = pygame.time.Clock()
+        self.display.blit(self.shadow, (self.x, self.y))
+        pygame.display.update()
+        clock.tick(60)
+
     def show_up(self, curr_x, curr_y, x, y):
         clock = pygame.time.Clock()
         if not self.displayed:
@@ -60,8 +66,8 @@ class Animal(AnimalUtils):
 
         old_x = self.x
         old_y = self.y
-        new_x = move_coordinate(self.x, 0, SCREEN_LENGTH)
-        new_y = move_coordinate(self.y, 0, SCREEN_HEIGHT)
+        new_x = move_coordinate(self.x, 20, SCREEN_LENGTH - 50)
+        new_y = move_coordinate(self.y, 20, SCREEN_HEIGHT - 50)
 
         self.report("Moving from:", self.x, self.y, "to", new_x, new_y)
 
@@ -69,7 +75,8 @@ class Animal(AnimalUtils):
 
         self.x = new_x
         self.y = new_y
-        self.show_up(old_x, old_y, self.x, self.y)
+        if self.alive:
+            self.show_up(old_x, old_y, self.x, self.y)
 
     def change_energy(self, energy_change):
         self.energy += energy_change

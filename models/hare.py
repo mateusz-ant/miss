@@ -4,7 +4,8 @@ import simpy
 
 from models.animal import Animal
 from pygame import image
-from parameters import HARE_EATING_DURATION, HARE_RUNNING_DURATION, HARE_MAX_SPEED, HARE_SLEEPING_DURATION
+from parameters import HARE_EATING_DURATION, HARE_RUNNING_DURATION, HARE_MAX_SPEED, HARE_SLEEPING_DURATION, \
+    HARE_MIN_REPRODUCE_DIST, HARE_SEXUAL_AROUSAL, HARE_FOOD_PORTION, HARE_FOOD_FINDING_PROBABILITY
 
 
 class Hare(Animal):
@@ -19,7 +20,7 @@ class Hare(Animal):
         self.sleeping_time = sleeping_duration * random.random()
 
     def run(self):
-        while True:
+        while self.alive:
             try:
                 self.report("Sleeping")
                 yield self.env.timeout(self.sleeping_time)
@@ -28,16 +29,21 @@ class Hare(Animal):
                 yield self.env.timeout(self.eating_time)
 
                 self.report("Running")
+
                 self.move()
+                self.find_food()
+
                 yield self.env.timeout(self.running_time)
             except simpy.Interrupt:
                 self.report("Has been killed!")
 
     def can_reproduce_with(self, other_animal):
         from models.animal import can_reproduce_with
-        return can_reproduce_with(.1, .25)(self, other_animal)
+        return can_reproduce_with(HARE_MIN_REPRODUCE_DIST, HARE_SEXUAL_AROUSAL)(self, other_animal)
 
     def die(self):
+        self.alive = False
+        self.bury()
         self.report("Bye bye cruel world")
         try:
             self.env.hares.remove(self)
@@ -46,3 +52,7 @@ class Hare(Animal):
 
     def __eq__(self, other):
         return self.name == other.name
+
+    def find_food(self):
+        if random.random() < HARE_FOOD_FINDING_PROBABILITY:
+            self.change_energy(HARE_FOOD_PORTION)

@@ -3,7 +3,7 @@ import random
 from models.animal import Animal
 from pygame import image
 from parameters import WOLF_EATING_DURATION, WOLF_RUNNING_DURATION, WOLF_MAX_SPEED, WOLF_SLEEPING_DURATION, \
-    WOLF_HUNT_PROBABILITY
+    WOLF_HUNT_PROBABILITY, WOLF_HUNT_MIN_DIST, WOLF_SEXUAL_AROUSAL, WOLF_MIN_REPRODUCE_DIST
 
 
 class Wolf(Animal):
@@ -14,7 +14,7 @@ class Wolf(Animal):
         self.shadow = image.load('img/wolf_b.png')
 
     def run(self):
-        while True:
+        while self.alive:
             self.report("Sleeping")
             yield self.env.timeout(self.sleeping_time)
 
@@ -28,19 +28,20 @@ class Wolf(Animal):
 
     def can_reproduce_with(self, other_animal):
         from models.animal import can_reproduce_with
-        return can_reproduce_with(.2, .5)(self, other_animal)
+        return can_reproduce_with(WOLF_MIN_REPRODUCE_DIST, WOLF_SEXUAL_AROUSAL)(self, other_animal)
 
     def hunt(self, hares):
         if len(hares) and random.random() < WOLF_HUNT_PROBABILITY:
             hare = random.choice(hares)
-            self.report("Running")
-            self.report("HARE TO BE KILLED:", hare.name)
-            hare.action.interrupt()
-            hare.die()
-            self.change_energy(hare.energy)
-        yield self.env.timeout(2)
+            if self.distance(hare) < WOLF_HUNT_MIN_DIST:
+                self.report("HARE TO BE KILLED:", hare.name)
+                hare.die()
+                hare.action.interrupt()
+                self.change_energy(hare.energy)
 
     def die(self):
+        self.alive = False
+        self.bury()
         self.report("Bye bye cruel world")
         try:
             self.env.wolves.remove(self)
